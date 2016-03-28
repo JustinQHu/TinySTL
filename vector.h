@@ -417,7 +417,7 @@ namespace tiny
 	}
 
 
-	template<class T> vector<T>::iterator  vector<T>::erase(iterator   pos)
+	template<class T> Iterator<T>  vector<T>::erase(iterator   pos)
 	{
 		return pos;
 	}
