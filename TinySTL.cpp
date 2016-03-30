@@ -51,7 +51,7 @@ int main()
 
 	}
  
-
+	 std::cout << "****************************************" << std::endl;
 	 for (tiny::vector<int>::iterator i = iv.begin(); i != iv.end(); ++i)
 	 {
 
@@ -60,42 +60,86 @@ int main()
 
 	 }
 
- 
+	 iv.pop_back();
+	 std::cout << "****************************************" << std::endl;
+	 for (tiny::vector<int>::iterator i = iv.begin(); i != iv.end(); ++i)
+	 {
+
+		 std::cout << "iterator dereference : " << *i << std::endl;
 
 
-	std::cout << iv.front() << "\t" << iv.back() << std::endl;
-	std::cout << iv.at(0) << "\n"
-		<< iv.at(1) << "\n"
-		<< iv.at(2) << "\n"
-		<< iv.at(3) << "\n"
-		<< iv.at(4) << "\n" << std::endl;
-	iv.resize(3);
-	std::cout << "size: " << iv.size() << " capacity:   " << iv.capacity() << std::endl;
-	std::cout << iv.at(0) << "\n"
-		<< iv.at(1) << "\n"
-		<< iv.at(2) << "\n" << std::endl;
-	iv.resize(8);
-	std::cout << "size: " << iv.size() << " capacity:   " << iv.capacity() << std::endl;
-	std::cout << iv.at(0) << "\n"
-		<< iv.at(1) << "\n"
-		<< iv.at(2) << "\n"
-		<< iv.at(3) << "\n" 
-		<< iv.at(4) << "\n" 
-		<< iv.at(5) << "\n" 
-		<< iv.at(6) << "\n" 
-		<< iv.at(7) << "\n" << std::endl;
-
-	std::cout<<iv[0]<<"\n"
-		<< iv[1] << "\n"
-		<< iv[2] << "\n"
-		<< iv[3] << "\n"
-		<< iv[4] << "\n"
-		<< iv[5] << "\n"
-		<< iv[6] << "\n"
-		<< iv[7] << "\n"<<std::endl;
+	 }
 
 
+	 iv.erase(iv.begin());
 
+	 std::cout << "****************************************" << std::endl;
+	 for (tiny::vector<int>::iterator i = iv.begin(); i != iv.end(); ++i)
+	 {
+
+		 std::cout << "iterator dereference : " << *i << std::endl;
+
+
+	 }
+	 iv.erase(iv.end() - 1);
+	 std::cout << "****************************************" << std::endl;
+	 for (tiny::vector<int>::iterator i = iv.begin(); i != iv.end(); ++i)
+	 {
+
+		 std::cout << "iterator dereference : " << *i << std::endl;
+
+
+	 }
+
+	 iv.push_back(10);
+	 iv.push_back(10);
+	 iv.push_back(10);
+
+	 std::cout << "****************************************" << std::endl;
+	 for (tiny::vector<int>::iterator i = iv.begin(); i != iv.end(); ++i)
+	 {
+
+		 std::cout << "iterator dereference : " << *i << std::endl;
+
+
+	 }
+
+
+
+	 tiny::vector<int> iv2(10,8);
+	 std::cout << "****************************************" << std::endl;
+	 for (tiny::vector<int>::iterator i = iv2.begin(); i != iv2.end(); ++i)
+	 {
+
+		 std::cout << "iterator dereference : " << *i << std::endl;
+
+
+	 }
+
+	 int k = 5;
+
+
+	 tiny::vector<int> iv3(2, k);
+	 std::cout << "****************************************" << std::endl;
+	 for (tiny::vector<int>::iterator i = iv3.begin(); i != iv3.end(); ++i)
+	 {
+
+		 std::cout << "iterator dereference : " << *i << std::endl;
+
+
+	 }
+
+
+	 iv3.insert(iv3.end(), 6);
+
+	 std::cout << "****************************************" << std::endl;
+	 for (tiny::vector<int>::iterator i = iv3.begin(); i != iv3.end(); ++i)
+	 {
+
+		 std::cout << "iterator dereference : " << *i << std::endl;
+
+
+	 }
 
 
 
