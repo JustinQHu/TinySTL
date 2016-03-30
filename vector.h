@@ -57,12 +57,35 @@ namespace tiny
 			return *this;
 		}
 
+
+		//operator+
+		Iterator& operator+(size_type pos)
+		{
+			pIterator += pos;
+			return *this;
+		}
+
+		//operator-
+		Iterator& operator-(size_type pos)
+		{
+			pIterator -= pos;
+			return *this;
+
+	}
+
+
 		// dereference operator
 		T& operator*()
 		{
 			return *pIterator;
 		}
 
+
+		// get the raw pointer
+		T* getPointer()
+		{
+			return pIterator;
+		}
 
 
 
@@ -114,9 +137,20 @@ namespace tiny
 			
 
 	public:
-		typedef  Iterator<T>    iterator;
+		typedef   Iterator<T>    iterator;
 		//default constructor,construct a empty vector
 		vector() :p_first_element(0), p_first_free(0), p_end(0) {}
+		
+		//constructor
+		vector(size_type count,const T& t):p_first_element(0), p_first_free(0), p_end(0)
+		{
+			for (size_type i = 0; i != count; ++i)
+			{
+				push_back(t);
+			}
+		
+		}
+
 
 		//copy constructor
 		 vector(const vector&);
@@ -233,7 +267,10 @@ namespace tiny
 		void resize(size_type count);
 
 		//erase the element at pos,return iterator following the removed element
-		iterator erase(iterator pos);
+		iterator& erase(iterator& pos);
+
+		//insert element before pos 
+		iterator& insert(iterator& pos, const T& value);
 
 
 
@@ -306,7 +343,7 @@ namespace tiny
 
 	//inition of static member: av & iv
 	template<class T> std::allocator<T> vector<T>::av = std::allocator<T>();
-	template<class T>  Iterator<T>  vector<T>::iv = Iterator<T>(0);
+	template<class T>  typename vector<T>::iterator  vector<T>::iv = Iterator<T>(0);
 
 
 //class definition
@@ -417,10 +454,56 @@ namespace tiny
 	}
 
 
-	template<class T> Iterator<T>  vector<T>::erase(iterator   pos)
+	template<class T> typename vector<T>::iterator&  vector<T>::erase(iterator&   pos)
 	{
+
+		T* ptemp = pos.getPointer()+1;
+
+		while (ptemp != p_first_free)
+		{
+			*(ptemp-1) = *ptemp ;
+
+			ptemp += 1;
+
+		}
+
+		pop_back();
+
+     	return pos;
+	}
+
+
+
+
+
+
+	template<class T> typename vector<T>::iterator& vector<T>::insert(iterator& pos, const T& value)
+	{
+
+		T* ptemp = pos.getPointer();
+		//记录偏移量，因为容器元素个数发生变化时（重新分配内存），原来迭代器（指针）失效
+		size_type dif = ptemp - p_first_element;
+
+		//call push_back to add element , and double size vector if necessary
+		//push_back(value);
+		push_back(value);
+
+		//根据偏移量计算新的对应的指针
+		T* ptemp_new = p_first_element + dif;
+		T* index = p_first_free - 1;
+	
+
+		while (index != ptemp_new)
+		{
+			*index = *(index -1);
+			index -= 1;
+		}
+
+		av.construct(ptemp_new, value);
+
 		return pos;
 	}
+
 
 
 
